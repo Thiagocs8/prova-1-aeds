@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+  int main(void) {
+    int portaPremiada, portaEscolhida, portaVazia;
+    char opcao;
+    srand(time(NULL));
+    printf("Bem-vindo ao jogo Monty Hall!\n");
+    printf("Jogo do Monty Hall\n");
+    portaPremiada = rand() % 3 + 1;
+    printf("\nEscolha uma porta entre 1 e 3: ");
+    scanf("%d", &portaEscolhida);
+    while(portaEscolhida < 1 || portaEscolhida > 3) {
+      printf("Escolha inválida. Escolha uma porta entre 1 e 3: ");
+      scanf("%d", &portaEscolhida);
+    }
+
+    // Revelando uma porta vazia que não foi escolhida
+    do {
+      portaVazia = rand() % 3 + 1;
+    } while(portaVazia == portaPremiada || portaVazia == portaEscolhida);
+    printf("A porta escolhida foi %d, Apresentador abriu a porta %d, a porta premiada era %d\n", portaEscolhida, portaVazia, portaPremiada);
+    printf("\nDeseja trocar de porta? (s/n): ");
+    scanf(" %c", &opcao);
+    if (opcao == 's' || opcao == 'S') {
+      portaEscolhida = 6 - portaEscolhida - portaVazia;  
+    }
+    if (portaEscolhida == portaPremiada) {
+      printf("Parabéns! Você ganhou!\n");
+    } else {
+      printf("Você perdeu! A porta premiada era: %d\n", portaPremiada);
+    }
+    return 0;
+  }
